@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration monitorInterval="5" status="error">
+	<Properties>
+		<Property name="serverFile">logs/http-server-json.log</Property>
+<!-- 		<Property name="inputQueueFile">logs/input-queue.log</Property>
+		<Property name="outputQueueFile">logs/output-queue.log</Property>
+		<Property name="randomProcessFile">logs/random-process.log</Property> -->
+	</Properties>
+	<Appenders>
+		<Console name="Console" target="SYSTEM_OUT">
+			<PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n" />
+		</Console>
+ 		<File name="server" fileName="${serverFile}">
+			<PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n" />
+		</File>
+	<!-- <File name="inputQueue" fileName="${inputQueueFile}">
+			<PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n" />
+		</File>
+		<File name="outputQueue" fileName="${outputQueueFile}">
+			<PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n" />
+		</File>
+		<File name="randomProcess" fileName="${randomProcessFile}">
+			<PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n" />
+		</File> -->
+		<Async name="AsyncServer">
+			<AppenderRef ref="server" />
+		</Async>
+		<Async name="AsyncInputQueue">
+			<AppenderRef ref="server" />
+		</Async>
+		<Async name="AsyncOutputQueue">
+			<AppenderRef ref="server" />
+		</Async>
+		<Async name="AsyncRandomProcess">
+			<AppenderRef ref="server" />
+		</Async>
+	</Appenders>
+	<loggers>
+		<logger name="com.http.server.servlets.MessageReceiverServlet"
+			level="debug" additivity="false">
+			<appender-ref ref="AsyncServer" />
+			<appender-ref ref="Console" />
+		</logger>
+		<logger name="com.http.server.servlets.QueuePeekServlet" level="debug"
+			additivity="false">
+			<appender-ref ref="AsyncServer" />
+			<appender-ref ref="Console" />
+		</logger>
+		<logger name="com.http.server.servlets.QueuePopServlet" level="debug"
+			additivity="false">
+			<appender-ref ref="AsyncServer" />
+			<appender-ref ref="Console" />
+		</logger>
+		<logger name="com.http.server.servlets.QueueSizeServlet" level="debug"
+			additivity="false">
+			<appender-ref ref="AsyncServer" />
+			<appender-ref ref="Console" />
+		</logger>
+		<logger name="com.input.queue.consumer.InputQueueConsumer"
+			level="debug" additivity="false">
+			<appender-ref ref="AsyncInputQueue" />
+			<appender-ref ref="Console" />
+		</logger>
+		<logger name="com.input.queue.consumer.InputQueueConsumer"
+			level="debug" additivity="false">
+			<appender-ref ref="AsyncInputQueue" />
+			<appender-ref ref="Console" />
+		</logger>
+		<logger name="com.output.queue.consumer.OutputQueueConsumer"
+			level="debug" additivity="false">
+			<appender-ref ref="AsyncOutputQueue" />
+			<appender-ref ref="Console" />
+		</logger>
+		<logger name="com.output.queue.producer.OutputQueueProducerImpl"
+			level="debug" additivity="false">
+			<appender-ref ref="AsyncOutputQueue" />
+			<appender-ref ref="Console" />
+		</logger>
+		<logger name="com.random.process.RandomProcessMakeQuestionMessageImpl"
+			level="debug" additivity="false">
+			<appender-ref ref="AsyncRandomProcess" />
+			<appender-ref ref="Console" />
+		</logger>
+		<root level="error">
+			<appender-ref ref="Console" />
+		</root>
+	</loggers>
+</Configuration>
