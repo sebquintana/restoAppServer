@@ -1,0 +1,15 @@
+{
+  "restaurant": "kubo",
+  "carta": [
+    {
+      "nombre": "Coca cola",
+      "descripcion": "1 Litro",
+      "precio": 20
+    },
+    {
+      "nombre": "ensalada mixta",
+      "descripcion": "tomate y  lechuga",
+      "precio": 20
+    }
+  ]
+}

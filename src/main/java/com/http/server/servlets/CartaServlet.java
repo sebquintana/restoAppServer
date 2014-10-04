@@ -1,5 +1,7 @@
 package com.http.server.servlets;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -10,34 +12,32 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.google.gson.Gson;
 import com.model.carta.Carta;
 
 public class CartaServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 	private static final Logger LOGGER = LogManager.getLogger();
-
+	private Gson gson;
+	private String cartaFilePath = "/home/seba/dev/Workspace/restoAppServer/src/main/resources/test.json";
+	
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws IOException {
 		LOGGER.debug("CartaServlet: Http Server request recibido!");
-
-		// WebApplicationContext applicationContext =
-		// ContextLoader.getCurrentWebApplicationContext();
-
-		Carta carta = new Carta("Resto del cubo");
-
-		LOGGER.debug("Restaurant: " + carta.getRestaurant());
-
-		response.setContentType("text/html");
+		String carta = "";
+		gson = new Gson();
+		try {
+			BufferedReader br = new BufferedReader(new FileReader(cartaFilePath));
+			Carta aux = gson.fromJson(br, Carta.class);
+			carta = gson.toJson(aux);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		LOGGER.debug("CartaServlet: Carta enviada!");
 		PrintWriter out = response.getWriter();
-		out.println("<HTML>");
-		out.println("<HEAD><TITLE>La concha de tu madre all boys!</TITLE></HEAD>");
-		out.println("<BODY>");
-		out.println("<BIG>Hello World</BIG>");
-		out.println("</BODY></HTML>");
-		
-		out.write(carta.getRestaurant());
+		out.write(carta);
 		out.close();
 	}
-
+	
 }
