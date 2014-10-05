@@ -18,8 +18,17 @@
 		<servlet-class>com.http.server.servlets.CartaServlet</servlet-class>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
-	<servlet-mapping>
+	<servlet>
+		<servlet-name>pedido</servlet-name>
+		<servlet-class>com.http.server.servlets.PedidoServlet</servlet-class>
+		<load-on-startup>2</load-on-startup>
+	</servlet>
+		<servlet-mapping>
 		<servlet-name>carta</servlet-name>
 		<url-pattern>/carta</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>pedido</servlet-name>
+		<url-pattern>/pedido</url-pattern>
 	</servlet-mapping>
 </web-app>
