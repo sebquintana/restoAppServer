@@ -10,7 +10,7 @@ import com.google.gson.GsonBuilder;
 import com.model.carta.Carta;
 import com.model.carta.ItemCarta;
 
-public class test {
+public class CartaTest {
 
 	private static String cartaFilePath = "/home/seba/dev/Workspace/restoAppServer/src/main/resources/test.json";
 
@@ -28,6 +28,7 @@ public class test {
 			BufferedReader br = new BufferedReader(new FileReader(cartaFilePath ));
 			Carta carta = gson.fromJson(br, Carta.class);
 			cartaString = gson.toJson(carta);
+			br.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -47,7 +48,7 @@ public class test {
 				
 				System.out.println("Nombre " + item.getNombre());
 			}
-	 
+			br.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
